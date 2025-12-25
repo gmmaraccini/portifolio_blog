@@ -156,19 +156,7 @@ resources/
 
 Este projeto é open-source e está licenciado sob a [MIT license](https://opensource.org/licenses/MIT).
 
-```
 
-***
 
-### Próximo passo sugerido:
-Agora que o README está pronto, você deve atualizar o arquivo no seu projeto e enviar para o GitHub para que ele apareça na página inicial do repositório.
-
-Faça isso no terminal:
-
-```bash
-# Se você criou o arquivo manualmente no VS Code:
-git add README.md
-git commit -m "Docs: Adiciona documentação técnica completa do projeto"
-git push
-
-```
+## Video funcionamento
+https://youtu.be/FCcDVA2QLZE
