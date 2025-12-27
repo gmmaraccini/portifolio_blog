@@ -15,9 +15,13 @@
         @if (Route::has('login'))
             <div class="space-x-4">
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="text-gray-600 hover:text-gray-900">Painel Admin</a>
+                    <a href="{{ url('/dashboard') }}" class="text-gray-600 hover:text-gray-900 font-semibold">Painel Admin</a>
                 @else
-                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900">Login</a>
+                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900 font-semibold">Login</a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="ml-4 text-gray-600 hover:text-gray-900 font-semibold">Registrar</a>
+                    @endif
                 @endauth
             </div>
         @endif
@@ -52,6 +56,7 @@
     @else
         <div class="bg-white p-6 rounded-lg shadow text-center">
             <p class="text-gray-500">Ainda não há posts publicados.</p>
+            <p class="text-sm text-gray-400 mt-2">Faça login no painel administrativo para criar o primeiro post.</p>
         </div>
     @endif
 </div>
