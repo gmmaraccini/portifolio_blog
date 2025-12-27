@@ -160,3 +160,77 @@ Este projeto é open-source e está licenciado sob a [MIT license](https://opens
 
 ## Video funcionamento
 https://youtu.be/FCcDVA2QLZE
+
+
+
+---
+
+# 🔌 Projeto 6: REST API (Complemento do Blog CMS)
+
+Esta etapa consistiu na evolução do projeto "Blog CMS" para uma arquitetura híbrida. Além das views tradicionais (Blade), o sistema agora expõe endpoints **RESTful** que retornam dados em formato **JSON**, permitindo que o conteúdo do blog seja consumido por aplicativos móveis ou front-ends modernos (React/Vue).
+
+**Repositório:** [github.com/gmmaraccini/portifolio_blog](https://github.com/gmmaraccini/portifolio_blog)
+
+## 🚀 Funcionalidades da API
+
+* **Listagem de Posts (`GET /api/posts`):** Retorna todos os posts marcados como "Publicado", com paginação automática.
+* **Detalhes do Post (`GET /api/posts/{id}`):** Retorna o conteúdo completo de um post específico.
+* **Transformação de Dados (API Resources):** Uso do `PostResource` para formatar o JSON, filtrando dados sensíveis e garantindo que o front-end receba apenas o necessário (ex: convertendo datas, limpando campos internos).
+* **Autenticação (Sanctum):** Configuração inicial do Laravel Sanctum para proteção de rotas futuras.
+
+## 🛠️ Tecnologias e Conceitos Aplicados
+
+* **Laravel 12 API:** Instalação e configuração do ambiente de API (`php artisan install:api`).
+* **API Resources:** Camada de transformação de dados para manter a resposta JSON consistente e desacoplada do Banco de Dados.
+* **Controller Separation:** Separação física entre `BlogController` (Web/HTML) e `Api/PostController` (JSON) para manter o princípio de responsabilidade única (SRP).
+* **Depuração de Migrations:** Resolução de conflitos de versionamento de banco de dados.
+
+## ⚙️ Como Testar a API
+
+Como o projeto já está configurado, siga os passos:
+
+1. **Garanta que o servidor está rodando:**
+```bash
+php artisan serve
+
+```
+
+
+2. **Teste a Listagem (Navegador ou Postman):**
+   Acesse: `http://localhost:8000/api/posts`
+   *Resultado esperado:* Um JSON contendo a lista de posts e metadados de paginação.
+3. **Teste Unitário (Post Específico):**
+   Acesse: `http://localhost:8000/api/posts/1`
+   *(Certifique-se de ter criado pelo menos um post no painel admin antes).*
+
+## 🛑 Desafios e Soluções (Dev Log)
+
+Durante o desenvolvimento desta API, enfrentei um desafio crítico relacionado ao versionamento do banco de dados no Laravel 12.
+
+**1. Conflito de Migrations Duplicadas**
+
+* **O Problema:** Ao executar o comando de instalação da API, o framework gerou automaticamente novas migrations para tabelas que já existiam (`posts` e `comments`), causando o erro `SQLSTATE[42S01]: Base table or view already exists`.
+* **A Análise:** Foi necessário inspecionar a pasta `database/migrations` e identificar que haviam arquivos duplicados: um com a estrutura completa (que eu havia codado) e outro vazio (gerado automaticamente).
+* **A Solução:**
+1. Identificação e exclusão dos arquivos de migration duplicados/vazios.
+2. Execução do comando `php artisan migrate:fresh --seed` para recriar o banco de dados do zero, garantindo a integridade do schema.
+
+
+
+**2. Routing e Classes Inexistentes**
+
+* **O Problema:** Erro `Target class [Api\PostController] does not exist` ao acessar as rotas.
+* **A Solução:** A estrutura de pastas da API foi definida nas rotas, mas os arquivos físicos não haviam sido gerados. Criei os Controllers e Resources manualmente via Artisan e implementei a lógica de busca.
+
+## ⏱️ Tempo de Execução
+
+* **Tempo estimado:** 2 a 3 horas.
+* **Foco:** O tempo maior foi dedicado à resolução de conflitos de *migrations* e reestruturação do banco de dados, garantindo que a base do projeto estivesse sólida para suportar tanto a Web quanto a API.
+
+---
+Video parte 2 -
+https://youtu.be/BpPVjcnTK80
+
+
+
+
